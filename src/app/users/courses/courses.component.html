@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<div class="desc container-fluid">
+  <div class="row">
+    <div class="illu col-md-5">
+      <img src="assets/illu_courses.jpg" alt="" class="img-fluid" draggable="false">
+    </div>
+    <div class="text_desc col-md-7">
+      <h1>Embrace the Future of Learning with DEVPATH</h1>
+      <p class="mt-5">
+        Dive into a world of knowledge and skills with our interactive online courses, tailored to meet all your
+        educational needs. Whether you're a professional looking to enhance your skills, a student aspiring for academic
+        excellence, or simply a curious learner eager to explore new subjects, we have something for everyone.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="courses container-fuid">
+  <div class="filter-container">
+    <div class="filter">
+      <h6>FILTER BY</h6>
+    </div>
+  </div>
+  <div class="cours">
+    <input type="text" class="form-control" placeholder="What new knowledge would you like to gain today?">
+    <div class="courseCards">
+      @for (course of courses; track $index) {
+        <app-course-cared [course]="course" class="cards"></app-course-cared>
+      }
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
