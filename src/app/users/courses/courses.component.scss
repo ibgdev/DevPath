@@ -78,13 +78,13 @@ $primary-color: #4B49F2;
       .cards {
         width: calc(100% / 4 - 2%);
         margin-top: 2%;
-        @media (max-width: 1200px) {
+        @media (max-width: 1650px) {
           width: calc(100% / 3 - 2%);
         }
-        @media (max-width: 768px) {
+        @media (max-width: 930px) {
           width: calc(100% / 2 - 2%);
         }
-        @media (max-width: 480px) {
+        @media (max-width: 630px) {
           width: 100%;
         }
       }
