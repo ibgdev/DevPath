@@ -15,17 +15,41 @@
   </div>
 </div>
 <div class="courses container-fuid">
+  <!-- Filter by Fild-->
   <div class="filter-container">
     <div class="filter">
       <h6>FILTER BY</h6>
     </div>
   </div>
+
   <div class="cours">
-    <input type="text" class="form-control" placeholder="What new knowledge would you like to gain today?">
+    <!-- Search Bar -->
+    <input type="text" class="form-control" placeholder="What new knowledge would you like to gain today?"
+      [(ngModel)]="searchTerms" (input)="filterCourses()">
+
+    <!-- Courses Cards -->
     <div class="courseCards">
-      @for (course of courses; track $index) {
-        <app-course-cared [course]="course" class="cards"></app-course-cared>
+      @if (filterdCourses.length == 0) {
+      <div class="alert alert-light w-100 text-center">
+        <p>No courses found</p>
+      </div>
+      }@else{
+      @for (course of getPaginatedCourses(); track $index) {
+      <app-course-cared [course]="course" class="cards"></app-course-cared>
       }
+      }
+    </div>
+
+
+    <!-- Paginaton -->
+    <div class="pagination-controls text-center mt-5">
+      <button class="btn" (click)="prevPage()" [disabled]="currentPage === 1">
+        Previous
+      </button>
+      <span class="mx-3">Page {{ currentPage }} / {{ getTotalPages() }}</span>
+      <button class="btn" (click)="nextPage()" [disabled]="currentPage >= getTotalPages()">
+        Next
+      </button>
     </div>
   </div>
 </div>

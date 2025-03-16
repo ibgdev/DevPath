@@ -13,18 +13,51 @@ import { CourseCaredComponent } from "../course-cared/course-cared.component";
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent implements OnInit {
+  //Les Cours et les cours filtrés
+  courses: any[] = [];
+  filterdCourses: any[] = [];
+  searchTerms: string = '';
+
+  //Pagination
+  currentPage: number = 1;
+  itemsPerPage: number = 8;
 
   constructor(private coursesService: CoursesService) { }
   ngOnInit() {
     this.getCourses();
   }
 
-  courses = <any>[];
-
   getCourses() {
     this.coursesService.getCourses().subscribe((data) => {
       this.courses = data;
-      console.log(this.courses);
+      this.filterdCourses = data;
     });
+  }
+
+  filterCourses() {
+    this.filterdCourses = this.courses.filter(course => course.titre.toLowerCase().includes(this.searchTerms.toLowerCase()))
+    this.currentPage = 1;
+  }
+
+  getPaginatedCourses() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filterdCourses.slice(start, end);
+  }
+
+  nextPage() {
+    if(this.currentPage * this.itemsPerPage < this.filterdCourses.length){
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if(this.currentPage > 1){
+      this.currentPage--;
+    }
+  }
+
+  getTotalPages() {
+    return Math.ceil(this.filterdCourses.length / this.itemsPerPage);
   }
 }
