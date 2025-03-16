@@ -1,13 +1,13 @@
 import { Router } from '@angular/router';
-import { SharedModule } from './../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-course-cared',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './course-cared.component.html',
-  styleUrl: './course-cared.component.scss'
+  templateUrl: './course-card.component.html',
+  styleUrl: './course-card.component.scss'
 })
 export class CourseCaredComponent {
 

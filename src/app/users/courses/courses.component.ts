@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { SharedModule } from '../../shared/shared.module';
 import { FooterComponent } from "../../footer/footer.component";
-import { CourseCaredComponent } from "../course-cared/course-cared.component";
+import { CourseCaredComponent } from "../course-card/course-card.component";
 
 @Component({
   selector: 'app-courses',
