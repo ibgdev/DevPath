@@ -7,6 +7,7 @@ $primary-color : #4B49F2 ;
   width:  clamp(250px, 25vw, 350px); ;
   height: 100%;
   position: relative;
+  cursor: pointer;
 
   .image{
     display: flex;

@@ -64,10 +64,16 @@ $primary-color: #4B49F2;
       border: $primary-color solid 1px;
       padding: 1%;
       border-radius: 15px;
+      transition: box-shadow 0.3s ease;
 
       &::placeholder {
         color: #000;
         font-weight: 500;
+      }
+
+      &:focus {
+        box-shadow: 0px 5px 15px rgba(75, 73, 242, 0.3);
+        outline: none;
       }
     }
 
@@ -75,9 +81,18 @@ $primary-color: #4B49F2;
       display: flex;
       flex-wrap: wrap;
       gap: 2%;
+
+
       .cards {
         width: calc(100% / 4 - 2%);
         margin-top: 2%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: transparent;
+
+        &:hover {
+          transform: scale(1.02);
+        }
+
         @media (max-width: 1650px) {
           width: calc(100% / 3 - 2%);
         }
@@ -89,5 +104,26 @@ $primary-color: #4B49F2;
         }
       }
     }
+  }
+}
+
+// Keyframes Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underline {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 70%;
   }
 }

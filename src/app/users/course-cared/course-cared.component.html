@@ -1,4 +1,4 @@
-<div class="cards">
+<div class="cards" (click)="toCours(course.id)">
   <div class="image container-fluid">
     <img
       src="https://imgs.search.brave.com/2LN9VPTL3pmvkT8C2bDNmby4Z_DMq4zA9_LJ5UtIn44/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jYW1v/LmdpdGh1YnVzZXJj/b250ZW50LmNvbS9m/YTYxMWI3YTNiYjQ3/MDRlNTg0Y2NiYTIy/ZTlhZmZiOGUyNWRl/N2FmYzEzZWMyN2Yw/ZDY4MzMzOWQ1M2Fh/MGE3LzY4NzQ3NDcw/NzMzYTJmMmY2NDMz/NzY2OTY3NmQ3MDY4/NjE2NDYyNmUzOTYy/MmU2MzZjNmY3NTY0/NjY3MjZmNmU3NDJl/NmU2NTc0MmY2MzZm/NzU3MjczNjUyZDY5/NmQ2MTY3NjU3MzJm/NmM2MTcyNjc2NTJk/Njk2ZDYxNjc2NTcz/MmY2MTZlNjc3NTZj/NjE3MjJkNzM2OTY3/NmU2MTZjNzMyZDYz/NmY3NTcyNzM2NTJl/NmE3MDY3"
@@ -8,8 +8,8 @@
     <h5 class="cards-title">{{ course.titre }}</h5>
     <p class="cards-text">{{ course.description }}</p>
     <p class="cards-date">{{ course.Created_At }}</p>
-    <a href="#" class="enroll"><svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
-        fill="#4B49F2">
+    <a href="#" class="enroll" title="Enroll Now"><svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+        fill="#4B49F2" (click)="$event.stopPropagation()">
         <path
           d="M480-329.33 630.67-480 480-630.67 433.33-584 504-513.33H326.67v66.66H504L433.33-376 480-329.33ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Zm0-66.67q139.33 0 236.33-97.33t97-236q0-139.33-97-236.33t-236.33-97q-138.67 0-236 97-97.33 97-97.33 236.33 0 138.67 97.33 236 97.33 97.33 236 97.33ZM480-480Z" />
       </svg></a>
