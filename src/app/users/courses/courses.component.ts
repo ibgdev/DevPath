@@ -1,5 +1,5 @@
 import { CoursesService } from '../../Services/courses.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { SharedModule } from '../../shared/shared.module';
 import { FooterComponent } from "../../footer/footer.component";
@@ -13,6 +13,9 @@ import { CourseCaredComponent } from "../course-cared/course-cared.component";
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent implements OnInit {
+  // réferancer le search bar
+  @ViewChild('searchbar') searchbar!: ElementRef;
+
   //Les Cours et les cours filtrés
   courses: any[] = [];
   filterdCourses: any[] = [];
@@ -34,11 +37,13 @@ export class CoursesComponent implements OnInit {
     });
   }
 
+  // filtrer les cours
   filterCourses() {
     this.filterdCourses = this.courses.filter(course => course.titre.toLowerCase().includes(this.searchTerms.toLowerCase()))
     this.currentPage = 1;
   }
 
+  //pagination
   getPaginatedCourses() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
@@ -48,16 +53,25 @@ export class CoursesComponent implements OnInit {
   nextPage() {
     if(this.currentPage * this.itemsPerPage < this.filterdCourses.length){
       this.currentPage++;
+      this.scrollToSearch();
     }
   }
 
   prevPage() {
     if(this.currentPage > 1){
       this.currentPage--;
+      this.scrollToSearch();
     }
   }
 
   getTotalPages() {
     return Math.ceil(this.filterdCourses.length / this.itemsPerPage);
   }
+
+  scrollToSearch() {
+    if (this.searchbar) {
+      this.searchbar.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
 }

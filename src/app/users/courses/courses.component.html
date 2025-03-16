@@ -24,7 +24,7 @@
 
   <div class="cours">
     <!-- Search Bar -->
-    <input type="text" class="form-control" placeholder="What new knowledge would you like to gain today?"
+    <input type="text" #searchbar class="form-control" placeholder="What new knowledge would you like to gain today?"
       [(ngModel)]="searchTerms" (input)="filterCourses()">
 
     <!-- Courses Cards -->
