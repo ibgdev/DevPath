@@ -1,0 +1,125 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem;
+    background-color: white;
+  
+    .hero-text {
+      max-width: 50%;
+  
+      h1 {
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+  
+      p {
+        font-size: 1.5rem;
+        color: #666;
+        margin-bottom: 1.5rem;
+      }
+  
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+  
+        .primary {
+          background-color: #6a00ff;
+          color: white;
+          padding: 0.7rem 1.5rem;
+          border: none;
+          border-radius: 6px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+  
+        .secondary {
+          background-color: transparent;
+          color: #6a00ff;
+          border: 2px solid #6a00ff;
+          padding: 0.7rem 1.5rem;
+          border-radius: 6px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+      }
+    }
+  
+    .hero-image {
+      img {
+        max-width: 800px;
+      }
+    }
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  
+    div {
+      font-size: 1rem;
+  
+      strong {
+        font-size: 1.5rem;
+        color: #6a00ff;
+      }
+  
+      .red {
+        color: #ff3b3b;
+      }
+    }
+  }
+  
+  .latest-courses {
+    padding: 3rem;
+    text-align: center;
+  
+    h2 {
+      color: #6a00ff;
+      margin-bottom: 2rem;
+    }
+  
+    .courses-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+  
+      .course-card {
+        width: 350px;
+        padding: 1rem;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  
+        img {
+          width: 100%;
+          border-radius: 8px;
+          margin-bottom: 1rem;
+        }
+  
+        h3 {
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+        }
+  
+        p {
+          font-size: 0.9rem;
+          color: #666;
+          margin-bottom: 0.5rem;
+        }
+  
+        span {
+          font-size: 0.8rem;
+          color: #888;
+        }
+      }
+    }
+  }
+  
