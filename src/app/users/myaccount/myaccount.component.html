@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<div class="account-container">
+    <h2>My Account</h2>
+    <p class="subtitle">Edit your profile from here</p>
+  
+    <div class="account-card">
+      <form class="account-form">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="User Example" />
+  
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="*************" />
+  
+        <label for="email">Email Address</label>
+        <div class="email-field">
+          <input type="email" id="email" value="exampleuser@domain.com" readonly />
+          <a href="#" class="change-link">Change</a>
+        </div>
+  
+        <div class="delete-section">
+          <h4>Delete Your Account</h4>
+          <p>
+            You will receive an email to confirm your decision.<br />
+            <strong>Please note</strong>, that all achievements you have done in will be permanently deleted
+          </p>
+        </div>
+  
+        <div class="buttons">
+          <button type="button" class="cancel">Cancel</button>
+          <button type="submit" class="save">Save changes</button>
+        </div>
+      </form>
+  
+      <div class="profile-info">
+        <img src="assets/user.jpg" alt="Profile" />
+        <p class="username">User Example</p>
+        <button class="delete">Delete account</button>
+      </div>
+    </div>
+  </div>
+  
+<app-footer></app-footer>
