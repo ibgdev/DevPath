@@ -58,8 +58,8 @@ export class YoutubeplayerComponent implements OnInit, AfterViewInit, OnChanges 
     const videoId = this.extractVideoID(this.videoUrl);
     console.log('Creating player with videoId:', videoId);
     this.player = new window.YT.Player('player', {
-      height: '360',
-      width: '640',
+      height: '520',
+      width: '980',
       videoId: videoId,
       playerVars: {
         autoplay: 1,
