@@ -10,74 +10,67 @@
 
       <div class="course-info">
         <h2 class="course-number">{{ currentVideoIndex + 1 }}</h2>
-        <h3 class="course-title">{{ videos[currentVideoIndex]?.titre }}</h3>
+        <h3 class="course-title">{{ course_videos[currentVideoIndex]?.titre }}</h3>
 
         <div class="course-meta">
-          <span>Course - {{ videos.length }} videos</span>
+          <span>Course - {{ course_videos.length }} videos</span>
         </div>
 
         <div class="progress-container">
           <div class="progress-circle">
-            <div
-              class="progress-indicator"
-              [style.strokeDashoffset]="calculateProgress()"
-            ></div>
+            <div class="progress-indicator" [style.strokeDashoffset]="calculateProgress()"></div>
           </div>
           <span class="progress-text">{{ calculateProgress() }}% of progression</span>
         </div>
       </div>
 
+      <!--Course Navigation-->
       <div class="course-navigation">
         <h4 class="nav-title">Course overview</h4>
-
         <ul class="nav-items">
-          <li
-            *ngFor="let video of videos; let i = index"
-            class="nav-item"
-            [class.active]="i === currentVideoIndex"
-            (click)="currentVideoIndex = i"
-          >
+          @if (isRegistered == false) {
+            <li class="nav-item" [class.active]="isRegistered == false">Start Now</li>
+          }
+
+          @for (video of course_videos; track video.id ;let i = $index) {
+          <li class="nav-item" [class.active]="i === currentVideoIndex && isRegistered == true" (click)="currentVideoIndex = i">
             {{ video.titre }}
           </li>
+          }
+
         </ul>
       </div>
     </div>
 
+    <!--Content Area-->
     <div class="content-area mt-5">
-      <h1 class="content-title">{{ videos[currentVideoIndex]?.titre }}</h1>
+      @if (isRegistered == false) {
+        <app-course-overview [courseId]="courseId"></app-course-overview>
+      }@else {
+        <h1 class="content-title">{{ course_videos[currentVideoIndex]?.titre }}</h1>
 
-      <!-- Video Player Component -->
-      <app-youtubeplayer
-        *ngIf="videos.length > 0"
-        [videoUrl]="videos[currentVideoIndex]?.url"
-      ></app-youtubeplayer>
+        <!-- Video Player Component -->
+        @if (course_videos.length > 0) {
+        <app-youtubeplayer [videoUrl]="course_videos[currentVideoIndex]?.url"></app-youtubeplayer>
 
-      <!-- Navigation Buttons -->
-      <div class="navigation-buttons">
-        <button
-          class="nav-button prev-button"
-          (click)="goToPrevious()"
-          [disabled]="currentVideoIndex === 0"
-        >
-          <i class="arrow-left"></i> Previous
-        </button>
-        <button
-          class="nav-button next-button"
-          (click)="goToNext()"
-          [disabled]="currentVideoIndex === videos.length - 1"
-        >
-          Next <i class="arrow-right"></i>
-        </button>
-      </div>
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+          <button class="nav-button prev-button" (click)="goToPrevious()" [disabled]="currentVideoIndex === 0">
+            <i class="arrow-left"></i> Previous
+          </button>
+          <button class="nav-button next-button" (click)="goToNext()"
+            [disabled]="currentVideoIndex === course_videos.length - 1">
+            Next <i class="arrow-right"></i>
+          </button>
+        </div>
+        }
+      }
     </div>
 
+    <!--Notes Area-->
     <div class="notes-panel">
       <h4 class="notes-title">ADD A NOTE :</h4>
-      <textarea
-        class="notes-content"
-        contenteditable="true"
-        placeholder="Click here to add notes..."
-      ></textarea>
+      <textarea class="notes-content" contenteditable="true" placeholder="Click here to add notes..."></textarea>
     </div>
   </div>
 </div>

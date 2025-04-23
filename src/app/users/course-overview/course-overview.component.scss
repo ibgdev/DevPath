@@ -1,0 +1,67 @@
+$primary-color: #4B49F2;
+$hover-color: #3367d6;
+$text-color: #333;
+$subtext-color: #555;
+$background-color: #f9f9f9;
+
+.course-welcome {
+  max-width: 900px;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: $background-color;
+  color: $text-color;
+
+  .course-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+
+  .course-image {
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .course-description {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .course-subtext {
+    font-size: 1rem;
+    color: $subtext-color;
+    margin-bottom: 2rem;
+  }
+
+  .register-btn {
+    background-color: $primary-color;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .course-welcome {
+    padding: 1rem;
+
+    .course-title {
+      font-size: 2rem;
+    }
+
+    .course-description {
+      font-size: 1rem;
+    }
+  }
+}

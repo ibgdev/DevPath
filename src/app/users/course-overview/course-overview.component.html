@@ -1,0 +1,11 @@
+<div class="course-welcome" *ngIf="course">
+  <h1 class="course-title">{{ course.titre }}</h1>
+  <img class="course-image" [src]="course.image_url" [alt]="course.titre">
+  <p class="course-description">{{ course.description }}</p>
+  <p class="course-subtext">Discover what's inside this course before you begin learning.</p>
+
+  <button (click)="registerToCourse()" class="register-btn">
+    Register and Start Learning
+  </button>
+
+</div>
