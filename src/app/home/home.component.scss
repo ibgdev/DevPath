@@ -101,7 +101,7 @@
 
   .courses-grid {
       display: flex;
-      gap: 2rem;
+      gap: 3rem;
       justify-content: center;
       flex-wrap: wrap;
 
@@ -147,5 +147,26 @@
               color: #888;
           }
       }
+  }
+}
+
+.cards {
+  width: calc(100% / 4 - 2%);
+  margin-top: 2%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: transparent;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 1650px) {
+    width: calc(100% / 3 - 2%);
+  }
+  @media (max-width: 930px) {
+    width: calc(100% / 2 - 2%);
+  }
+  @media (max-width: 630px) {
+    width: 100%;
   }
 }

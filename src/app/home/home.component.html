@@ -26,24 +26,9 @@
 <section class="latest-courses">
   <h2>Latest Courses</h2>
   <div class="courses-grid">
-    <div class="course-card">
-      <img src="../../assets/angular.png" alt="Angular Course" />
-      <h3>Angular 19 Course</h3>
-      <p>This course is added to focus on updating your skills on angular 19</p>
-      <span>12/02/2025</span>
-    </div>
-    <div class="course-card">
-      <img src="../../assets/ai.png" alt="AI Course" />
-      <h3>ML & AI Course</h3>
-      <p>This course is added to focus on updating your skills on ML & AI</p>
-      <span>12/02/2025</span>
-    </div>
-    <div class="course-card">
-      <img src="../../assets/java.png" alt="Java Course" />
-      <h3>Java for Beginners</h3>
-      <p>This course is added to focus on updating your skills on java</p>
-      <span>12/02/2025</span>
-    </div>
+    @for (course of recentCourses; track $index) {
+      <app-course-cared [course] = "course"></app-course-cared>
+    }
   </div>
 </section>
 
