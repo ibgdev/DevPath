@@ -5,24 +5,18 @@
       DEVPATH is a community effort that provides guides and other educational content to help guide
       developers in picking up a path and directing their learning.
     </p>
-  
-  
+
+
     <div class="tabs">
         <div class="line"></div>
         <button class="tab active">Role-based Roadmaps</button>
         <div class="line"></div>
       </div><br>
-  
+
     <div class="roadmap-grid">
-      <div class="card">Frontend <span class="bookmark"></span></div>
-      <div class="card">Backend <span class="bookmark"></span></div>
-      <div class="card">DevOps <span class="bookmark"></span></div>
-      <div class="card">Full Stack <span class="bookmark"></span></div>
-      <div class="card">Android <span class="bookmark"></span></div>
-      <div class="card">UX Design <span class="bookmark"></span></div>
-      <div class="card">Cyber Security <span class="bookmark"></span></div>
-      <div class="card">Data Analyst <span class="bookmark"></span></div>
-      <div class="card">AI and Data Scientist <span class="bookmark"></span></div>
+      @for (roadmap of roadmaps; track $index) {
+        <div class="card"> {{ roadmap.titre}} <span class="bookmark"></span></div>
+      }
     </div>
   </div>
 
