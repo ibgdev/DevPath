@@ -6,7 +6,9 @@ import { DetailCourseComponent } from './users/detail-course/detail-course.compo
 import { AboutusComponent } from './users/aboutus/aboutus.component';
 import { MyaccountComponent } from './users/myaccount/myaccount.component';
 import { RoadmapgeneralComponent } from './users/roadmapgeneral/roadmapgeneral.component';
+import { AuthComponent } from './auth/auth.component';
 import { CourseOverviewComponent } from './users/course-overview/course-overview.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,5 +18,9 @@ export const routes: Routes = [
   { path: 'roadmaps', component: RoadmapgeneralComponent },
   { path: 'course-details/:id', component: DetailCourseComponent },
   { path: 'course-overview/:id', component: CourseOverviewComponent },
+  { path: 'auth', component: AuthComponent },
   { path: '**', component: NotFoundComponent }
+
+
+ 
 ];
