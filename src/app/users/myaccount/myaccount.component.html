@@ -6,10 +6,10 @@
     <div class="account-card">
       <form class="account-form">
         <label for="name">Your Name</label>
-        <input type="text" id="name" placeholder="User Example" />
+        <input type="text" id="name" [(ngModel)]="name" />
   
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="*************" />
+        <input type="password" id="password" [(ngModel)]="password" />
   
         <label for="email">Email Address</label>
         <div class="email-field">
@@ -26,15 +26,16 @@
         </div>
   
         <div class="buttons">
-          <button type="button" class="cancel">Cancel</button>
-          <button type="submit" class="save">Save changes</button>
+          <button type="button" class="cancel" (click)="cancelChanges()">Cancel</button>
+          <button type="submit" class="save" (click)="saveChanges()">Save changes</button>
+          
         </div>
       </form>
   
       <div class="profile-info">
         <img src="assets/user.jpg" alt="Profile" />
         <p class="username">User Example</p>
-        <button class="delete">Delete account</button>
+        <button class="delete" (click)="deleteAccount()">Delete account</button>
       </div>
     </div>
   </div>
