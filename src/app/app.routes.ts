@@ -20,9 +20,9 @@ export const routes: Routes = [
   { path: 'course-details/:id', component: DetailCourseComponent },
   { path: 'course-overview/:id', component: CourseOverviewComponent },
   { path: 'auth', component: AuthComponent },
-  { path: 'your-courses', component: YourCoursesComponent },
+  { path: 'my-courses', component: YourCoursesComponent },
   { path: '**', component: NotFoundComponent }
 
 
- 
+
 ];
