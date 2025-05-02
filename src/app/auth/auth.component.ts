@@ -8,6 +8,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component";
+import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -19,7 +21,11 @@ import { FooterComponent } from "../footer/footer.component";
 export class AuthComponent implements AfterViewInit {
   @ViewChild('containerRef') containerRef!: ElementRef;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private authService: AuthService,
+    private router: Router  // Inject the Router for navigation
+  ) {}
 
   ngAfterViewInit(): void {
     const container = this.containerRef.nativeElement;
@@ -32,6 +38,38 @@ export class AuthComponent implements AfterViewInit {
 
     signInBtn.addEventListener('click', () => {
       this.renderer.removeClass(container, 'sign-up-mode');
+    });
+  }
+
+  onLogin(email: string, password: string) {
+    this.authService.login({ email, password }).subscribe({
+      next: (res: any) => {
+        // Assuming the response contains the token
+        const token = res.token;
+        this.authService.saveToken(token);  // Save token to localStorage
+        console.log('Login successful', res);
+
+        // Redirect to the home page (or wherever you want to go)
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Login failed', err);
+        alert(err.error?.error || 'Login failed.');
+      }
+    });
+  }
+
+  onRegister(email: string, password: string, username: string) {
+    this.authService.register({ email, password, username }).subscribe({
+      next: () => {
+        alert('Registration successful. You can now log in.');
+        // Optionally, you can redirect the user to the login page after successful registration
+        this.renderer.removeClass(this.containerRef.nativeElement, 'sign-up-mode');
+      },
+      error: (err) => {
+        console.error('Registration failed', err);
+        alert(err.error?.error || 'Registration failed.');
+      }
     });
   }
 }
