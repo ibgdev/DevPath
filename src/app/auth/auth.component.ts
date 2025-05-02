@@ -25,7 +25,7 @@ export class AuthComponent implements AfterViewInit {
     private renderer: Renderer2,
     private authService: AuthService,
     private router: Router  // Inject the Router for navigation
-  ) {}
+  ) { }
 
   ngAfterViewInit(): void {
     const container = this.containerRef.nativeElement;
@@ -44,12 +44,11 @@ export class AuthComponent implements AfterViewInit {
   onLogin(email: string, password: string) {
     this.authService.login({ email, password }).subscribe({
       next: (res: any) => {
-        // Assuming the response contains the token
-        const token = res.token;
-        this.authService.saveToken(token);  // Save token to localStorage
-        console.log('Login successful', res);
+        const token = res.token;         // ✅ reads the "token"
+        const user = res.user;           // ✅ reads the "user" object
 
-        // Redirect to the home page (or wherever you want to go)
+        this.authService.saveToken(token);   // Saves token in localStorage
+
         this.router.navigate(['/']);
       },
       error: (err) => {
@@ -57,7 +56,9 @@ export class AuthComponent implements AfterViewInit {
         alert(err.error?.error || 'Login failed.');
       }
     });
+
   }
+
 
   onRegister(email: string, password: string, username: string) {
     this.authService.register({ email, password, username }).subscribe({

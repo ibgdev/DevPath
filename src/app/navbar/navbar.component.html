@@ -1,15 +1,26 @@
 <nav class="navbar sticky-top">
-    <div class="logo">
-        <a routerLink="/"><img src="assets/DEVPATH.png" alt="devpath logo" /></a>
-    </div>
-    <div class="links">
-        <ul>
-            <li><a routerLink="/roadmaps" >Roadmaps</a></li>
-            <li><a routerLink="/courses">Courses</a></li>
-            <li><a routerLink="/about-us">About us</a></li>
-        </ul>
-    </div>
-    <div class="auth">
-        <button class="btn signin" routerLink="/auth">Sign in</button>
-    </div>
+  <div class="logo">
+    <a routerLink="/"><img src="assets/DEVPATH.png" alt="devpath logo" /></a>
+  </div>
+  <div class="links">
+    <ul>
+      <li><a routerLink="/roadmaps">Roadmaps</a></li>
+      <li><a routerLink="/courses">Courses</a></li>
+      <li><a routerLink="/about-us">About us</a></li>
+    </ul>
+  </div>
+
+  <div *ngIf="isLoggedIn" class="dropdown">
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      {{ user.username }}
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+      <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <div *ngIf="!isLoggedIn" class="auth">
+    <button class="btn signin" routerLink="/auth">Sign in</button>
+  </div>
 </nav>
