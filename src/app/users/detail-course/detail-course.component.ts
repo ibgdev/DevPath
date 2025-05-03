@@ -22,7 +22,7 @@ export class DetailCourseComponent implements OnInit {
   currentVideoIndex: number = 0;
   courseId: number = 0;
   isRegistered: boolean = false;
-  user = JSON.parse(localStorage.getItem("user") || '{}');
+  user = JSON.parse(sessionStorage.getItem("user") || '{}');
 
   constructor(
     private progressionService: ProgressionService,

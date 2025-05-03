@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
       this.authService.getUser(userInfo.username).subscribe({
         next: (user) => {
           this.user = user;  // Set user information
-          localStorage.setItem('user', JSON.stringify(user));  // Store user data in localStorage
+          sessionStorage.setItem('user', JSON.stringify(user));  // Store user data in localStorage
         },
         error: (err) => {
           console.error('Failed to fetch user information', err);

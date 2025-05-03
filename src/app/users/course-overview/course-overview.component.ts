@@ -2,6 +2,7 @@ import { ProgressionService } from './../../Services/progression.service';
 import { SharedModule } from '../../shared/shared.module';
 import { CoursesService } from './../../Services/courses.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-overview',
@@ -13,9 +14,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CourseOverviewComponent implements OnInit {
 
   course: any;
-  user = JSON.parse(localStorage.getItem("user") || '{}');
+  user = JSON.parse(sessionStorage.getItem("user") || '{}');
   @Input() courseId: number = 0;
-  constructor(private coursesService: CoursesService, private progressionService : ProgressionService) { }
+  constructor(private coursesService: CoursesService, private progressionService : ProgressionService, private router : Router) { }
   ngOnInit(): void {
     this.getCourseInfos(this.courseId)
   }
@@ -33,6 +34,10 @@ export class CourseOverviewComponent implements OnInit {
   }
 
   registerToCourse() {
+    if (!localStorage.getItem("token")) {
+      this.router.navigate(["/auth"])
+      return;
+    }
     const data = {
       utilisateur_id: this.user?.id,
       cours_id: this.courseId

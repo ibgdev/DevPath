@@ -40,6 +40,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem("token");
+    sessionStorage.removeItem("user");
   }
 
   getUser(username: string){
