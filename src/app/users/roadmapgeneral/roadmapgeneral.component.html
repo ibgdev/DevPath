@@ -1,24 +1,30 @@
+<!-- HTML Template -->
 <app-navbar></app-navbar>
-<div class="roadmap-container"><br>
-    <h1>Developer Roadmap</h1><br>
-    <p class="description">
-      DEVPATH is a community effort that provides guides and other educational content to help guide
-      developers in picking up a path and directing their learning.
-    </p>
+<div class="roadmap-container">
+  <h1 class="roadmap-title">Developer Roadmap</h1>
+  <p class="description">
+    DEVPATH is a community effort that provides guides and other educational content to help guide
+    developers in picking up a path and directing their learning.
+  </p>
 
-
-    <div class="tabs">
-        <div class="line"></div>
-        <button class="tab active">Role-based Roadmaps</button>
-        <div class="line"></div>
-      </div><br>
-
-    <div class="roadmap-grid">
-      @for (roadmap of roadmaps; track $index) {
-        <div class="card"> {{ roadmap.titre}} <span class="bookmark"></span></div>
-      }
-    </div>
+  <div class="tabs">
+    <button class="tab">Role-based Roadmaps</button>
+    <button class="tab">Skill-based Roadmaps</button>
+    <button class="tab">Best Practices</button>
   </div>
 
-<app-footer></app-footer>
+  <div class="roadmap-grid">
+    @for (roadmap of roadmaps; track $index) {
+      <div class="card">
+        <span class="card-title">{{ roadmap.titre }}</span>
+        <div class="card-actions">
+          <span class="bookmark">
+            <i class="fas fa-bookmark"></i>
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</div>
 
+<app-footer></app-footer>
