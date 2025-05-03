@@ -8,15 +8,15 @@
   </p>
 
   <div class="tabs">
-    <button class="tab">Role-based Roadmaps</button>
-    <button class="tab">Skill-based Roadmaps</button>
-    <button class="tab">Best Practices</button>
+    <span class="tab">Role-based Roadmaps</span>
+    <span class="tab">Skill-based Roadmaps</span>
+    <span class="tab">Best Practices</span>
   </div>
 
   <div class="roadmap-grid">
     @for (roadmap of roadmaps; track $index) {
       <div class="card">
-        <span class="card-title">{{ roadmap.titre }}</span>
+        <a class="card-title">{{ roadmap.titre }}</a>
         <div class="card-actions">
           <span class="bookmark">
             <i class="fas fa-bookmark"></i>

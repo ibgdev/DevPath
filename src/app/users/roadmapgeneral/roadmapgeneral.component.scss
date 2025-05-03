@@ -83,7 +83,6 @@ $border-radius: 12px;
       border: 2px solid rgba($primary-color, 0.2);
       background: white;
       border-radius: $border-radius;
-      cursor: pointer;
       font-weight: 600;
       color: $text-color;
       transition: $transition;
@@ -143,6 +142,7 @@ $border-radius: 12px;
       }
 
       .card-title {
+        text-decoration: none;
         font-size: 1.2rem;
         font-weight: 600;
         flex: 1;
