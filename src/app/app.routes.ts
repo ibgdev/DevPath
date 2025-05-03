@@ -9,6 +9,7 @@ import { RoadmapgeneralComponent } from './users/roadmapgeneral/roadmapgeneral.c
 import { AuthComponent } from './auth/auth.component';
 import {YourCoursesComponent} from './users/your-courses/your-courses.component';
 import { CourseOverviewComponent } from './users/course-overview/course-overview.component';
+import { RoadmapDetailsComponent } from './roadmap-details/roadmap-details.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'about-us', component: AboutusComponent },
   { path: 'my-account', component: MyaccountComponent },
   { path: 'roadmaps', component: RoadmapgeneralComponent },
+  { path: 'roadmaps/:id', component: RoadmapDetailsComponent },
   { path: 'course-details/:id', component: DetailCourseComponent },
   { path: 'course-overview/:id', component: CourseOverviewComponent },
   { path: 'auth', component: AuthComponent },

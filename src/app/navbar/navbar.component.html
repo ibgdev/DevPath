@@ -2,26 +2,44 @@
   <div class="logo">
     <a routerLink="/"><img src="assets/DEVPATH.png" alt="devpath logo" /></a>
   </div>
-  <div class="links">
-    <ul>
-      <li><a routerLink="/roadmaps">Roadmaps</a></li>
-      <li><a routerLink="/courses">Courses</a></li>
-      <li><a routerLink="/about-us">About us</a></li>
-    </ul>
+
+  <!-- Hamburger menu button for mobile -->
+  <div class="nav-toggle" (click)="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 
-  <div *ngIf="isLoggedIn" class="dropdown">
-    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-      {{ user?.username }}
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" routerLink="/my-courses">my courses</a></li>
-      <li><a class="dropdown-item" routerLink="/my-account">Profile</a></li>
-      <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-    </ul>
-  </div>
+  <!-- Nav overlay for mobile -->
+  <div class="nav-overlay" [class.active]="isMenuOpen" (click)="closeMenu()"></div>
 
-  <div *ngIf="!isLoggedIn" class="auth">
-    <button class="btn signin" routerLink="/auth">Sign in</button>
+  <!-- Navigation content -->
+  <div class="nav-content" [class.active]="isMenuOpen">
+    <div class="links">
+      <ul>
+        <li><a routerLink="/roadmaps" routerLinkActive="active" (click)="closeMenu()">Roadmaps</a></li>
+        <li><a routerLink="/courses" routerLinkActive="active" (click)="closeMenu()">Courses</a></li>
+        <li><a routerLink="/about-us" routerLinkActive="active" (click)="closeMenu()">About us</a></li>
+      </ul>
+    </div>
+
+    <div class="auth-section">
+      <!-- User dropdown when logged in -->
+      <div *ngIf="isLoggedIn" class="dropdown">
+        <button class="dropdown-toggle" type="button" (click)="toggleDropdown($event)" [class.show]="isDropdownOpen">
+          {{ user?.username }}
+        </button>
+        <ul class="dropdown-menu" [class.show]="isDropdownOpen">
+          <li><a class="dropdown-item" routerLink="/my-courses" (click)="closeMenu()">My Courses</a></li>
+          <li><a class="dropdown-item" routerLink="/my-account" (click)="closeMenu()">Profile</a></li>
+          <li><a class="dropdown-item" (click)="logout(); closeMenu()">Logout</a></li>
+        </ul>
+      </div>
+
+      <!-- Auth buttons when not logged in -->
+      <div *ngIf="!isLoggedIn" class="auth">
+        <button class="btn register" routerLink="/auth" (click)="closeMenu()">Sign in</button>
+      </div>
+    </div>
   </div>
 </nav>

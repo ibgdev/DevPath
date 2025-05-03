@@ -1,49 +1,98 @@
 <app-navbar></app-navbar>
-<div class="desc container-fluid">
-  <div class="row">
-    <div class="illu col-md-5">
-      <img src="assets/illu_courses.jpg" alt="" class="img-fluid" draggable="false">
-    </div>
-    <div class="text_desc col-md-7">
-      <h1>Embrace the Future of Learning with DEVPATH</h1>
-      <p class="mt-5">
-        Dive into a world of knowledge and skills with our interactive online courses, tailored to meet all your
-        educational needs. Whether you're a professional looking to enhance your skills, a student aspiring for academic
-        excellence, or simply a curious learner eager to explore new subjects, we have something for everyone.
-      </p>
-    </div>
-  </div>
-</div>
-<div class="courses container-fuid">
-  <div class="cours">
-    <!-- Search Bar -->
-    <input type="text" #searchbar class="form-control" placeholder="What new knowledge would you like to gain today?"
-      [(ngModel)]="searchTerms" (input)="filterCourses()">
 
-    <!-- Courses Cards -->
-    <div class="courseCards">
-      @if (filterdCourses.length == 0) {
-      <div class="alert alert-light w-100 text-center">
-        <p>No courses found</p>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-image-wrapper">
+        <img src="assets/illu_courses.jpg" alt="Learning Illustration" class="hero-image" draggable="false">
       </div>
-      }@else{
-      @for (course of getPaginatedCourses(); track $index) {
-      <app-course-cared [course]="course" class="cards"></app-course-cared>
-      }
-      }
-    </div>
 
-
-    <!-- Paginaton -->
-    <div class="pagination-controls text-center mt-5">
-      <button class="btn" (click)="prevPage()" [disabled]="currentPage === 1">
-        Previous
-      </button>
-      <span class="mx-3">Page {{ currentPage }} / {{ getTotalPages() }}</span>
-      <button class="btn" (click)="nextPage()" [disabled]="currentPage >= getTotalPages()">
-        Next
-      </button>
+      <div class="hero-text">
+        <h1 class="hero-title">Embrace the Future of Learning with <span class="highlight">DEVPATH</span></h1>
+        <p class="hero-description">
+          Dive into a world of knowledge and skills with our interactive online courses, tailored to meet all your
+          educational needs. Whether you're a professional looking to enhance your skills, a student aspiring for academic
+          excellence, or simply a curious learner eager to explore new subjects, we have something for everyone.
+        </p>
+        <div class="hero-cta">
+          <button class="btn-primary">Get Started</button>
+          <button class="btn-secondary">Browse Roadmaps</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- Courses Section -->
+<section class="courses-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Explore Our Courses</h2>
+      <p class="section-subtitle">Find the perfect learning path for your career goals</p>
+    </div>
+
+    <div class="courses-container">
+      <!-- Search Area -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <i class="search-icon">🔍</i>
+          <input
+            type="text"
+            #searchbar
+            class="search-input"
+            placeholder="What new knowledge would you like to gain today?"
+            [(ngModel)]="searchTerms"
+            (input)="filterCourses()"
+          >
+        </div>
+      </div>
+
+      <!-- Course Cards Grid -->
+      <div class="course-grid">
+        @if (filterdCourses.length == 0) {
+          <div class="empty-state">
+            <div class="empty-icon">📚</div>
+            <h3>No courses found</h3>
+            <p>Try adjusting your search criteria or browse our categories</p>
+          </div>
+        } @else {
+          @for (course of getPaginatedCourses(); track $index) {
+            <app-course-cared [course]="course" class="course-card-wrapper"></app-course-cared>
+          }
+        }
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button
+          class="pagination-btn prev"
+          (click)="prevPage()"
+          [disabled]="currentPage === 1"
+          [class.disabled]="currentPage === 1"
+        >
+          <i class="pagination-icon">←</i>
+          <span>Previous</span>
+        </button>
+
+        <div class="pagination-info">
+          <span class="current-page">{{ currentPage }}</span>
+          <span class="divider">/</span>
+          <span class="total-pages">{{ getTotalPages() }}</span>
+        </div>
+
+        <button
+          class="pagination-btn next"
+          (click)="nextPage()"
+          [disabled]="currentPage >= getTotalPages()"
+          [class.disabled]="currentPage >= getTotalPages()"
+        >
+          <span>Next</span>
+          <i class="pagination-icon">→</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <app-footer></app-footer>

@@ -13,4 +13,12 @@ export class RoadmapsService {
   getRoadmaps():Observable<any> {
     return this.http.get<any>(this.baseUrl);
   }
+
+  getCourses(id : number | String): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/${id}/courses`)
+  }
+
+  getRoadmapInfos(id : number | String){
+    return this.http.get<any>(`${this.baseUrl}/${id}`)
+  }
 }

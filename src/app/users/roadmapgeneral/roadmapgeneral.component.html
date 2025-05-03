@@ -16,7 +16,7 @@
   <div class="roadmap-grid">
     @for (roadmap of roadmaps; track $index) {
       <div class="card">
-        <a class="card-title">{{ roadmap.titre }}</a>
+        <a class="card-title" routerLink="/roadmaps/{{roadmap.id}}" routerLinkActive="active">{{ roadmap.titre }}</a>
         <div class="card-actions">
           <span class="bookmark">
             <i class="fas fa-bookmark"></i>

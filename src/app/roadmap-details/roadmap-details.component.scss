@@ -1,0 +1,179 @@
+
+// Primary color
+$primary-color: #4B49F2;
+$secondary-color: #6C63FF;
+$light-bg: #F8F9FF;
+$dark-text: #2D3748;
+$light-text: #718096;
+
+.roadmap-container {
+  padding: 2rem;
+  background-color: $light-bg;
+  min-height: 100vh;
+}
+
+.road {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.road-line {
+  position: absolute;
+  top: 0;
+  left: 50px;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, $primary-color, $secondary-color);
+  z-index: 1;
+}
+
+.roadmap-title {
+  color: $primary-color;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: $primary-color;
+    margin: 1rem auto;
+    border-radius: 2px;
+  }
+}
+
+.course-milestones {
+  position: relative;
+  z-index: 2;
+}
+
+.milestone {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 80px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.milestone-marker {
+  position: absolute;
+  left: 38px;
+  top: 20px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(75, 73, 242, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(75, 73, 242, 0.15);
+  }
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h3 {
+    color: $dark-text;
+    margin: 0;
+    font-size: 1.3rem;
+  }
+}
+
+.course-order {
+  background: $primary-color;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.course-description {
+  color: $light-text;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.video-container {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+}
+
+.no-courses {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $light-text;
+    margin-bottom: 2rem;
+  }
+}
+
+.explore-button {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .road-line {
+    left: 30px;
+  }
+
+  .milestone {
+    padding-left: 60px;
+  }
+
+  .milestone-marker {
+    left: 18px;
+  }
+
+  .roadmap-title {
+    font-size: 1.5rem;
+  }
+}

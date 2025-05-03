@@ -1,35 +1,143 @@
 <app-navbar></app-navbar>
 
-<section class="hero">
-  <div class="hero-text">
-    <h1>Learn a New Skill<br />Everyday, Anytime,<br />and Anywhere.</h1>
-    <p>
-      Covering all development domains to guide you to become what you want in the future.
-      Where you can roadmaps and courses
-    </p>
-    <div class="hero-buttons">
-      <a routerLink="courses" class="primary">Start Now</a>
-      <a routerLink="aboutus" class="secondary">How it works</a>
+<main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Learn a New Skill<br />Everyday, Anytime,<br />and Anywhere.</h1>
+          <p>
+            Covering all development domains to guide you to become what you want in the future.
+            Access professional roadmaps and courses to accelerate your career growth.
+          </p>
+          <div class="hero-buttons">
+            <a routerLink="/courses" class="btn primary">Start Now</a>
+            <a routerLink="/about-us" class="btn secondary">How it works</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="../../assets/hero.png" alt="Hero Illustration" />
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="hero-image">
-    <img src="../../assets/hero.png" alt="Hero Illustration" />
-  </div>
-</section>
+  </section>
 
-<section class="stats">
-  <div><strong>150+</strong><br />Courses to choose from</div>
-  <div><strong>200+</strong><br />Students Trained</div>
-  <div><strong class="red">31+</strong><br />Roadmaps to follow</div>
-</section>
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">150+</span>
+          <span class="stat-label">Courses to choose from</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">200+</span>
+          <span class="stat-label">Students Trained</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number red">31+</span>
+          <span class="stat-label">Roadmaps to follow</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="latest-courses">
-  <h2>Latest Courses</h2>
-  <div class="courses-grid">
-    @for (course of recentCourses; track $index) {
-      <app-course-cared [course] = "course"></app-course-cared>
-    }
-  </div>
-</section>
+  <!-- Latest Courses Section -->
+  <section class="latest-courses">
+    <div class="container">
+      <div class="section-header">
+        <h2>Latest Courses</h2>
+        <p>Explore our newest offerings to stay ahead in your learning journey</p>
+      </div>
+      <div class="courses-grid">
+        @for (course of recentCourses; track $index) {
+          <app-course-cared [course]="course"></app-course-cared>
+        }
+      </div>
+      <div class="view-more">
+        <a routerLink="/courses" class="btn outline">View All Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-us">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Choose DevPath</h2>
+        <p>We provide everything you need to become a successful developer</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-road"></i>
+          </div>
+          <h3>Clear Roadmaps</h3>
+          <p>Follow structured learning paths designed by industry experts</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Practical Projects</h3>
+          <p>Build your portfolio with real-world projects and examples</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Community Support</h3>
+          <p>Connect with fellow learners and get help when you need it</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3>Earn Certificates</h3>
+          <p>Get recognized for your skills with completion certificates</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Our Students Say</h2>
+        <p>Join thousands of satisfied learners on their journey to success</p>
+      </div>
+      <div class="testimonial-carousel">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            <p>"DevPath helped me transition from a marketing role to a full-stack developer in just 6 months. The roadmaps were incredibly helpful!"</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="../../assets/avatars/avatar-1.jpg" alt="Student Avatar" />
+            <div>
+              <h4>Sarah Johnson</h4>
+              <p>Full Stack Developer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Start Your Learning Journey?</h2>
+        <p>Join thousands of students already learning with DevPath</p>
+        <div class="cta-buttons">
+          <a routerLink="/auth/register" class="btn primary">Sign Up Free</a>
+          <a routerLink="/roadmaps" class="btn outline light">Explore Roadmaps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <app-footer></app-footer>

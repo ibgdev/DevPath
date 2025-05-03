@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<div class="roadmap-container">
+  <div class="road">
+    <div class="road-line"></div>
+
+    <div *ngIf="courses.length > 0; else noCourses" class="courses-container">
+      <h2 class="roadmap-title">Journey Through {{ roadmap.titre }} Roadmap
+        <p style="color: rgba(128, 128, 128, 0.589); font-size:15px; margin-top: 10px;">{{ roadmap.description}}</p>
+      </h2>
+      <div class="course-milestones">
+        <div *ngFor="let course of courses; let i = index" class="milestone">
+          <div class="milestone-marker" [ngStyle]="{'background-color': getMarkerColor(i)}"></div>
+          <div class="course-card" (click)="goTocourse(course.id)" style="cursor: pointer;">
+            <div class="course-header">
+              <h3>{{ course.titre }}</h3>
+              <span class="course-order">Step {{i + 1}}</span>
+            </div>
+            <p class="course-description">{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noCourses>
+      <div class="no-courses">
+        <h2>Your Learning Journey Awaits</h2>
+        <p>No courses found for this roadmap yet.</p>
+        <button class="explore-button">Explore Other Roadmaps</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

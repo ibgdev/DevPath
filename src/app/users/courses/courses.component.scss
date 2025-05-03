@@ -1,126 +1,457 @@
+// Variables
 $primary-color: #4B49F2;
+$primary-dark: darken($primary-color, 10%);
+$primary-light: rgba($primary-color, 0.1);
+$text-dark: #333;
+$text-light: #666;
+$white: #fff;
+$gray-bg: #f8f9fa;
+$shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 8px 24px rgba($primary-color, 0.15);
+$shadow-lg: 0 16px 40px rgba($primary-color, 0.2);
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 20px;
+$transition: all 0.3s ease;
+$container-padding: 0 5%;
 
-.desc {
-  padding: 0 10%;
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .ill {
-    img {
-      width: clamp(400px, 50vw, 500px);
-    }
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Global Styles
+:host {
+  font-family: 'Poppins', sans-serif;
+  color: $text-dark;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: $container-padding;
+}
+
+// Buttons
+.btn-primary {
+  background: linear-gradient(45deg, $primary-color, lighten($primary-color, 10%));
+  color: $white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+  box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba($primary-color, 0.4);
   }
 
-  .text_desc {
-    padding: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &:active {
+    transform: translateY(1px);
+  }
+}
 
-    h1 {
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      color: $primary-color;
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-    }
+.btn-secondary {
+  background-color: $white;
+  color: $primary-color;
+  border: 2px solid $primary-color;
+  border-radius: 30px;
+  padding: 0.75rem 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+  margin-left: 1rem;
 
-    p {
-      font-family: 'Poppins', sans-serif;
-      color: #000;
-      width: 80%;
-      text-align: justify;
-      font-size: clamp(0.8rem, 1.5vw, 1rem);
+  &:hover {
+    background-color: $primary-light;
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Hero Section
+.hero-section {
+  padding-top: 5rem;
+  padding-bottom: 1rem ;
+  background: linear-gradient(135deg, $white 0%, $gray-bg 100%);
+  overflow: hidden;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-right: 30px;
+  width: 500px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba($primary-color, 0.3), rgba($primary-color, 0.05));
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba($primary-color, 0.2), rgba($primary-color, 0.05));
+    z-index: -1;
+  }
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: $transition;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.hero-text {
+  @include flex-column;
+  justify-content: center;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  color: $text-dark;
+
+  .highlight {
+    color: $primary-color;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: $primary-color;
+      border-radius: 2px;
     }
   }
 }
 
-.courses {
+.hero-description {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.7;
+  color: $text-light;
+  margin-bottom: 2rem;
+}
+
+.hero-cta {
   display: flex;
-  gap: 2%;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+// Courses Section
+.courses-section {
+  padding: 5rem 0;
+  background-color: $white;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, lighten($primary-color, 15%));
+    border-radius: 2px;
+  }
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: $text-light;
+}
+
+.courses-container {
+  @include flex-column;
+  gap: 2rem;
+}
+
+// Search Bar
+.search-container {
+  margin-bottom: 2rem;
+}
+
+.search-wrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: $text-light;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 2px solid rgba($primary-color, 0.2);
+  border-radius: $border-radius-lg;
+  font-size: 1rem;
+  transition: $transition;
+  background-color: $white;
+
+  &:focus {
+    outline: none;
+    box-shadow: $shadow-md;
+    border-color: $primary-color;
+  }
+
+  &::placeholder {
+    color: $text-light;
+    font-weight: 500;
+  }
+}
+
+// Course Grid
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.course-card-wrapper {
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+}
+
+// Empty State
+.empty-state {
+  grid-column: 1 / -1;
+  @include flex-column;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: $gray-bg;
+  border-radius: $border-radius-md;
+  border: 1px dashed rgba($primary-color, 0.3);
+
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: $text-dark;
+  }
+
+  p {
+    color: $text-light;
+    max-width: 400px;
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
 
-  .filter-container {
-    width: 100%;
-    max-width: 15%;
-    padding: 0 1%;
-    .filter {
-      border: $primary-color solid 1px;
-      padding: 5%;
-      border-radius: 15px;
-      height: 100%;
-      h6 {
-        font-weight: bold;
-        font-size: clamp(0.8rem, 1.5vw, 1rem);
-      }
-    }
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  background-color: $primary-color;
+  color: $white;
+  border-radius: $border-radius-md;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: $primary-dark;
   }
 
-  .cours {
-    width: 100%;
-    padding: 0 2%;
-    max-width: 85%;
+  &.disabled {
+    background-color: lighten($text-light, 30%);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .pagination-icon {
+    font-style: normal;
+  }
+}
+
+.pagination-info {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+
+  .current-page {
+    color: $primary-color;
+    font-size: 1.2rem;
+  }
+
+  .divider {
+    margin: 0 0.5rem;
+    color: $text-light;
+  }
+
+  .total-pages {
+    color: $text-light;
+  }
+}
+
+// Responsive Styles
+@media (max-width: 992px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-image-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    order: 2;
+  }
+
+  .hero-text {
+    order: 1;
+    text-align: center;
+  }
+
+  .hero-cta {
     justify-content: center;
-
-    .form-control {
-      border: $primary-color solid 1px;
-      padding: 1%;
-      border-radius: 15px;
-      transition: box-shadow 0.3s ease;
-
-      &::placeholder {
-        color: #000;
-        font-weight: 500;
-        font-size: clamp(0.8rem, 1.5vw, 1rem);
-      }
-
-      &:focus {
-        box-shadow: 0px 5px 15px rgba(75, 73, 242, 0.3);
-        outline: none;
-      }
-    }
-
-    .courseCards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2%;
-
-
-      .cards {
-        width: calc(100% / 4 - 2%);
-        margin-top: 2%;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        background-color: transparent;
-
-        &:hover {
-          transform: scale(1.02);
-        }
-
-        @media (max-width: 1650px) {
-          width: calc(100% / 3 - 2%);
-        }
-        @media (max-width: 930px) {
-          width: calc(100% / 2 - 2%);
-        }
-        @media (max-width: 630px) {
-          width: 100%;
-        }
-      }
-    }
   }
 
-  .pagination-controls {
-    button{
-      background-color: $primary-color;
-      color: #fff;
-      border: none;
-      padding: 1%;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+  .section-header {
+    margin-bottom: 2rem;
+  }
+}
 
-      &:hover {
-        background-color: darken($primary-color, 10%);
-      }
-    }
+@media (max-width: 768px) {
+  .hero-section, .courses-section {
+    padding: 3rem 0;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .course-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-section, .courses-section {
+    padding: 2rem 0;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .search-input {
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+  }
+
+  .search-icon {
+    left: 1rem;
+    font-size: 1rem;
   }
 }

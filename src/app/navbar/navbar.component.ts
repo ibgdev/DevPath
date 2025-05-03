@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
@@ -13,6 +13,9 @@ import { AuthService } from '../Services/auth.service';
 export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   user: any;
+
+  isMenuOpen: boolean = false;
+  isDropdownOpen: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -44,6 +47,50 @@ export class NavbarComponent implements OnInit {
           alert('Failed to fetch user information');
         }
       });
+    }
+  }
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+
+    // Prevent body scrolling when menu is open
+    if (this.isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      this.isDropdownOpen = false;
+    }
+  }
+
+  closeMenu(): void {
+    if (this.isMenuOpen) {
+      this.isMenuOpen = false;
+      document.body.style.overflow = '';
+      this.isDropdownOpen = false;
+    }
+  }
+
+  toggleDropdown(event: Event): void {
+    event.stopPropagation();
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+
+  // Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const dropdown = document.querySelector('.dropdown');
+
+    if (dropdown && !dropdown.contains(target)) {
+      this.isDropdownOpen = false;
+    }
+  }
+
+  // Close mobile menu on window resize (if screen becomes larger)
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (window.innerWidth > 992 && this.isMenuOpen) {
+      this.closeMenu();
     }
   }
 }

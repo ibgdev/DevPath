@@ -1,41 +1,209 @@
-$primary-color : #4B49F2 ;
-.cards{
-  border: $primary-color solid 1px;
-  border-radius: 15px;
-  padding: 1%;
-  margin: 5% 0 ;
-  width:  clamp(250px, 25vw, 350px); ;
-  height: 100%;
-  position: relative;
-  cursor: pointer;
+// Variables
+$primary-color: #4B49F2;
+$primary-dark: darken($primary-color, 10%);
+$primary-light: lighten($primary-color, 35%);
+$text-color: #333;
+$light-text: #787878;
+$white: #ffffff;
+$box-shadow: 0 8px 20px rgba(75, 73, 242, 0.15);
+$transition: all 0.3s ease;
+$border-radius: 15px;
 
-  .image{
-    display: flex;
-    justify-content: center;
-    padding: 2% 0;
-    img{
-      border: #4B49F2 solid 1px;
-      border-radius: 15px;
-      width: 95%;
-      margin: 2%;
+// Card Component
+.course-card {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  min-height: 390px;
+  border-radius: $border-radius;
+  background-color: $white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: $transition;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  border: 1px solid rgba($primary-color, 0.2);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $box-shadow;
+    border-color: $primary-color;
+
+    .card-image {
+      transform: scale(1.05);
+    }
+
+    .enroll-button {
+      background: $primary-color;
+      color: $white;
+
+      svg {
+        fill: $white;
+        transform: translateX(2px);
+      }
+
+      span {
+        opacity: 1;
+        width: auto;
+        margin-left: 8px;
+      }
     }
   }
-  .cards-body{
-    text-align: center;
+
+  // Image Section
+  .card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: $transition;
+      border-bottom: 2px solid rgba($primary-color, 0.1);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: $primary-color;
+      color: $white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 3px 8px rgba($primary-color, 0.3);
+    }
   }
 
-  .cards-date{
-    margin: 4%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
+  // Content Section
+  .card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 180px);
 
-  .enroll{
-    position: absolute;
-    margin: 2%;
-    bottom: 0;
-    right: 0;
-    font-weight: bold;
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $text-color;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 40px;
+        height: 3px;
+        background: $primary-color;
+        border-radius: 3px;
+      }
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      color: $light-text;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    // Footer Section
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+
+      .card-date {
+        font-size: 0.85rem;
+        color: $light-text;
+        margin: 0;
+      }
+
+      .enroll-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($primary-color, 0.1);
+        color: $primary-color;
+        border: none;
+        border-radius: 25px;
+        padding: 0.5rem;
+        transition: $transition;
+        overflow: hidden;
+
+        svg {
+          width: 24px;
+          height: 24px;
+          fill: $primary-color;
+          transition: $transition;
+        }
+
+        span {
+          opacity: 0;
+          width: 0;
+          overflow: hidden;
+          transition: $transition;
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  .course-card {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-card {
+    max-width: 100%;
+
+    .card-image-wrapper {
+      height: 160px;
+    }
+
+    .card-content {
+      padding: 1.25rem;
+
+      .card-title {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .course-card {
+    min-height: 380px;
+
+    .card-image-wrapper {
+      height: 140px;
+    }
+
+    .enroll-button {
+      span {
+        opacity: 1;
+        width: auto;
+        margin-left: 8px;
+      }
+    }
   }
 }
