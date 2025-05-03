@@ -22,7 +22,7 @@ export class DetailCourseComponent implements OnInit {
   currentVideoIndex: number = 0;
   courseId: number = 0;
   isRegistered: boolean = false;
-  userId: number = 1; //TODO : replace by the user
+  user = JSON.parse(localStorage.getItem("user") || '{}');
 
   constructor(
     private progressionService: ProgressionService,
@@ -55,16 +55,27 @@ export class DetailCourseComponent implements OnInit {
   }
 
   //check if the user registred to the course or not
-  checkRegistration(): void{
-    this.progressionService.chechRegistration(this.userId, this.courseId).subscribe(
+  checkRegistration(): void {
+    this.progressionService.chechRegistration(this.user.id, this.courseId).subscribe(
       (response) => {
-        this.isRegistered = response.registered;
+        console.log('Registration check response:', response);
+
+        // Check if the response contains the expected properties
+        if (response && response.statut && response.pourcentage !== undefined) {
+          // Update registration status and progression data
+          this.isRegistered = response.statut === 'registered';
+          console.log('Registration status:', this.isRegistered);
+          console.log('Progress percentage:', response.pourcentage);
+        } else {
+          console.error('Invalid response structure:', response);
+        }
       },
       (error) => {
-        console.error('Registration check failed');
+        console.error('Registration check failed:', error);
       }
-    )
+    );
   }
+
 
   goToPrevious(): void {
     if (this.currentVideoIndex > 0) {

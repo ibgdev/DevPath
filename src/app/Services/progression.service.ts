@@ -11,8 +11,8 @@ export class ProgressionService {
 
   constructor(private http: HttpClient) { }
 
-  chechRegistration(userId: number, courseId: number): Observable<{ registered: boolean }> {
-    return this.http.get<{ registered: boolean }>(`${this.baseUrl}/check?user_id=${userId}&cours_id=${courseId}`);
+  chechRegistration(userId: number, courseId: number): Observable<ProgressionResponse> {
+    return this.http.get<ProgressionResponse>(`${this.baseUrl}/check?user_id=${userId}&cours_id=${courseId}`);
   }
 
   registerToCourse(data: {
@@ -22,3 +22,10 @@ export class ProgressionService {
     return this.http.post(`${this.baseUrl}/register`, data);
   }
 }
+
+export interface ProgressionResponse {
+  statut: string;
+  pourcentage: number;
+  updated_at: string;
+}
+

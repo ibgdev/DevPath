@@ -37,15 +37,12 @@ export class CourseOverviewComponent implements OnInit {
       utilisateur_id: this.user?.id,
       cours_id: this.courseId
     };
-    console.log('Sending registration data:', data);
-
     this.progressionService.registerToCourse(data).subscribe({
       next: (res) => {
-        console.log('Registration successful:', res);
         alert('Inscription réussie au cours !');
+        window.location.reload();
       },
       error: (err) => {
-        console.error('Registration failed:', err);
         alert('Erreur lors de l\'inscription. Veuillez réessayer.');
       }
     });
