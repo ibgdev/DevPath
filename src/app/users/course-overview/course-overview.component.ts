@@ -1,3 +1,4 @@
+import { ProgressionService } from './../../Services/progression.service';
 import { SharedModule } from '../../shared/shared.module';
 import { CoursesService } from './../../Services/courses.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -12,8 +13,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CourseOverviewComponent implements OnInit {
 
   course: any;
+  user = JSON.parse(localStorage.getItem("user") || '{}');
   @Input() courseId: number = 0;
-  constructor(private coursesService: CoursesService) { }
+  constructor(private coursesService: CoursesService, private progressionService : ProgressionService) { }
   ngOnInit(): void {
     this.getCourseInfos(this.courseId)
   }
@@ -30,9 +32,25 @@ export class CourseOverviewComponent implements OnInit {
     )
   }
 
-  //TODO : Register to course algo
   registerToCourse() {
-    throw new Error('Method not implemented.');
+    const data = {
+      utilisateur_id: this.user?.id,
+      cours_id: this.courseId
+    };
+    console.log('Sending registration data:', data);
+
+    this.progressionService.registerToCourse(data).subscribe({
+      next: (res) => {
+        console.log('Registration successful:', res);
+        alert('Inscription réussie au cours !');
+      },
+      error: (err) => {
+        console.error('Registration failed:', err);
+        alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+      }
+    });
   }
+
+
 
 }

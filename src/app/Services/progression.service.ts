@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProgressionService {
   //TODO : Progression backend
-  private baseUrl = 'https://localhost:8000/api/progression';
+  private baseUrl = 'http://localhost:8000/api/progression';
 
   constructor(private http: HttpClient) { }
 
@@ -18,8 +18,6 @@ export class ProgressionService {
   registerToCourse(data: {
     utilisateur_id: number;
     cours_id: number;
-    status: string;
-    prog_pourcentage: number;
   }): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, data);
   }
