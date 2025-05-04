@@ -1,8 +1,6 @@
-import { ProgressionService } from './../../Services/progression.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-
+import { ProgressionService } from './../../Services/progression.service';
 import { VideosService } from './../../Services/videos.service';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { FooterComponent } from "../../footer/footer.component";
@@ -13,74 +11,73 @@ import { CourseOverviewComponent } from "../course-overview/course-overview.comp
 @Component({
   selector: 'app-detail-course',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, YoutubeplayerComponent, SharedModule, CourseOverviewComponent],
+  imports: [
+    NavbarComponent,
+    FooterComponent,
+    YoutubeplayerComponent,
+    SharedModule,
+    CourseOverviewComponent
+  ],
   templateUrl: './detail-course.component.html',
-  styleUrl: './detail-course.component.scss'
+  styleUrls: ['./detail-course.component.scss']
 })
 export class DetailCourseComponent implements OnInit {
   course_videos: any[] = [];
-  currentVideoIndex: number = 0;
-  courseId: number = 0;
-  isRegistered: boolean = false;
-  user = JSON.parse(sessionStorage.getItem("user") || '{}');
-  progressionPercentage: number = 0;
+  currentVideoIndex = 0;
+  courseId = 0;
+  isRegistered = false;
+  progressionPercentage = 0;
+  user = JSON.parse(sessionStorage.getItem('user') || '{}');
 
   constructor(
-    private progressionService: ProgressionService,
     private videosService: VideosService,
+    private progressionService: ProgressionService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    // Get courseId from URL
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.courseId = +idParam;
       this.fetchVideos();
-      this.checkRegistration();
     } else {
       console.error('Course ID not found in route');
     }
   }
 
-  // Get all videos of the course
+  // 1) Load videos, then check registration/progression
   fetchVideos(): void {
-    this.videosService.getVideosByCourseId(this.courseId).subscribe(
-      (response) => {
-        this.course_videos = response;
+    this.videosService.getVideosByCourseId(this.courseId).subscribe({
+      next: (videos) => {
+        this.course_videos = videos;
+        this.checkRegistration();
       },
-      (error) => {
-        console.error('Error fetching videos:', error);
+      error: (err) => {
+        console.error('Error fetching videos:', err);
       }
-    );
+    });
   }
 
-  // Check if the user is registered to the course
+  // 2) Check registration and restore last‐watched index & percentage
   checkRegistration(): void {
-    this.progressionService.chechRegistration(this.user.id, this.courseId).subscribe(
-      (response) => {
-        this.isRegistered = response.statut === 'registered';
-        this.progressionPercentage = response.pourcentage;
-        // derive last index (rounding down)
-        const total = this.course_videos.length;
-        const idx = Math.floor((response.pourcentage / 100) * total) - 1;
-        this.currentVideoIndex = idx >= 0 ? idx : 0;
-      },
-      (error) => {
-        console.error('Registration check failed:', error);
-      }
-    );
+    this.progressionService.chechRegistration(this.user.id, this.courseId)
+      .subscribe({
+        next: (res: any) => {
+          this.isRegistered = res.statut === 'registered';
+          this.progressionPercentage = res.pourcentage;
+
+          // derive last index from percentage
+          const total = this.course_videos.length;
+          const idx = Math.floor((res.pourcentage / 100) * total) - 1;
+          this.currentVideoIndex = idx >= 0 ? idx : 0;
+        },
+        error: (err) => {
+          console.error('Registration check failed:', err);
+        }
+      });
   }
 
-  // Go to next video
-  goToNext(): void {
-    if (this.currentVideoIndex < this.course_videos.length - 1) {
-      this.currentVideoIndex++;
-      this.updateProgression();
-    }
-  }
-
-  // Go to previous video
+  // 3) Navigate previous
   goToPrevious(): void {
     if (this.currentVideoIndex > 0) {
       this.currentVideoIndex--;
@@ -88,8 +85,18 @@ export class DetailCourseComponent implements OnInit {
     }
   }
 
-  // Update the progression in the backend and fetch the updated percentage
-  updateProgression(): void {
+  // 4) Navigate next or finish
+  onNextClick(): void {
+    if (this.isLastVideo) {
+      window.location.reload();
+    } else {
+      this.currentVideoIndex++;
+      this.updateProgression();
+    }
+  }
+
+  // 5) Send update to backend and pull new percentage
+  private updateProgression(): void {
     const body = {
       utilisateur_id: this.user.id,
       cours_id: this.courseId,
@@ -98,16 +105,20 @@ export class DetailCourseComponent implements OnInit {
     };
 
     this.progressionService.updateProgression(body).subscribe({
-      next: (response: any) => {
-        console.log('Progression updated:', response);
-        // read the correct key:
-        this.progressionPercentage = response.new_percentage;
+      next: (res: any) => {
+        this.progressionPercentage = res.new_percentage;
       },
       error: (err) => {
         console.error('Failed to update progression:', err);
       }
     });
+  }
 
+  // Helper getter for template
+  get isLastVideo(): boolean {
+    return (
+      this.course_videos.length > 0 &&
+      this.currentVideoIndex === this.course_videos.length - 1
+    );
   }
 }
-

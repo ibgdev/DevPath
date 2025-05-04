@@ -15,14 +15,16 @@
 
   <div class="roadmap-grid">
     @for (roadmap of roadmaps; track $index) {
+    <a routerLink="/roadmaps/{{roadmap.id}}" routerLinkActive="active" style="text-decoration: none;">
       <div class="card">
-        <a class="card-title" routerLink="/roadmaps/{{roadmap.id}}" routerLinkActive="active">{{ roadmap.titre }}</a>
+        <span class="card-title">{{ roadmap.titre }}</span>
         <div class="card-actions">
           <span class="bookmark">
             <i class="fas fa-bookmark"></i>
           </span>
         </div>
       </div>
+    </a>
     }
   </div>
 </div>

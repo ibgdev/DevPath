@@ -1,10 +1,9 @@
-import { ProgressionService } from './../../Services/progression.service';
-import { SharedModule } from '../../shared/shared.module';
-import { CoursesService } from './../../Services/courses.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import Swal from 'sweetalert2';
+import { CoursesService } from './../../Services/courses.service';
+import { ProgressionService } from './../../Services/progression.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-course-overview',
@@ -14,25 +13,28 @@ import Swal from 'sweetalert2';
   styleUrl: './course-overview.component.scss'
 })
 export class CourseOverviewComponent implements OnInit {
-
+  @Input() courseId = 0;
   course: any;
   user = JSON.parse(sessionStorage.getItem("user") || '{}');
-  @Input() courseId: number = 0;
-  constructor(private coursesService: CoursesService, private progressionService : ProgressionService, private router : Router) { }
+
+  /** false = show “Register” UI; true = show “Finished” UI */
+  isRegisteredOrCompleted = false;
+
+  constructor(
+    private coursesService: CoursesService,
+    private progressionService: ProgressionService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
-    this.getCourseInfos(this.courseId)
+    this.loadCourse();
   }
 
-
-  getCourseInfos(courseId: number) {
-    this.coursesService.getCourseById(courseId).subscribe(
-      (response) => {
-        this.course = response;
-      },
-      (error) => {
-        console.error('Error fetching course info:', error);
-      }
-    )
+  private loadCourse() {
+    this.coursesService.getCourseById(this.courseId).subscribe({
+      next: (course) => this.course = course,
+      error: (err) => console.error('Error fetching course info:', err)
+    });
   }
 
   registerToCourse() {
@@ -41,28 +43,31 @@ export class CourseOverviewComponent implements OnInit {
       return;
     }
 
-    const data = {
-      utilisateur_id: this.user?.id,
+    const payload = {
+      utilisateur_id: this.user.id,
       cours_id: this.courseId
     };
 
-    this.progressionService.registerToCourse(data).subscribe({
-      next: (res) => {
-        const message = res.message || '';
-        if (message === 'Course registration successful.') {
+    this.progressionService.registerToCourse(payload).subscribe({
+      next: (res: any) => {
+        const msg = res.message || '';
+
+        // Mark as registered/completed so template flips to the finish block
+        this.isRegisteredOrCompleted = true;
+
+        if (msg === 'Course registration successful.') {
           Swal.fire({
             icon: 'success',
             title: 'Inscription réussie',
             text: 'Vous êtes inscrit à ce cours.',
             confirmButtonColor: '#4361ee'
-          }).then(() => {
-            window.location.reload(); // recharger après le popup
-          });
-        } else if (message === 'User is already registered for this course.') {
+          }).then(() => window.location.reload());
+        } else {
+          // covers "already registered" or any other success message
           Swal.fire({
             icon: 'info',
             title: 'Déjà inscrit ou complété',
-            text: 'Vous êtes complété ou déjà inscrit à ce cours.',
+            text: 'Vous êtes déjà inscrit ou avez déjà terminé ce cours.',
             confirmButtonColor: '#4361ee'
           });
         }
@@ -77,7 +82,4 @@ export class CourseOverviewComponent implements OnInit {
       }
     });
   }
-
-
-
 }

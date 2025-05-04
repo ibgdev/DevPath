@@ -33,7 +33,7 @@
           }
 
           @for (video of course_videos; track video.id ;let i = $index) {
-          <li class="nav-item" [class.active]="i === currentVideoIndex && isRegistered == true" (click)="currentVideoIndex = i">
+          <li class="nav-item" [class.active]="i === currentVideoIndex && isRegistered == true">
             {{ video.titre }}
           </li>
           }
@@ -55,14 +55,25 @@
 
         <!-- Navigation Buttons -->
         <div class="navigation-buttons">
-          <button class="nav-button prev-button" (click)="goToPrevious()" [disabled]="currentVideoIndex === 0">
+          <button
+            class="nav-button prev-button"
+            (click)="goToPrevious()"
+            [disabled]="currentVideoIndex === 0">
             <i class="arrow-left"></i> Previous
           </button>
-          <button class="nav-button next-button" (click)="goToNext()"
-            [disabled]="currentVideoIndex === course_videos.length - 1">
-            Next <i class="arrow-right"></i>
+
+          <button
+            class="nav-button next-button"
+            (click)="onNextClick()">
+            <ng-container *ngIf="!isLastVideo">
+              Next <i class="arrow-right"></i>
+            </ng-container>
+            <ng-container *ngIf="isLastVideo">
+              Finish
+            </ng-container>
           </button>
         </div>
+
         }
       }
     </div>

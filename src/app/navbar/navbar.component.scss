@@ -34,11 +34,6 @@ body {
 
     img {
       width: clamp(120px, 20vw, 160px);
-      transition: $transition;
-
-      &:hover {
-        transform: scale(1.05);
-      }
     }
   }
 
