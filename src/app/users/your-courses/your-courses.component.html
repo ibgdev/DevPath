@@ -1,71 +1,53 @@
-<body>
-  <div class="page-wrapper">
-    <app-navbar></app-navbar>
+<div class="page-wrapper">
+  <app-navbar></app-navbar>
 
-    <main class="content-wrapper">
-      <h1>Your courses</h1>
+  <main class="content-wrapper">
+    <h1>Your courses</h1>
+
+    <!-- filter nav -->
+    <nav class="filter-nav">
+      <ul>
+        <li [class.active]="filterStatus === 'all'" (click)="setFilter('all')">All</li>
+        <li [class.active]="filterStatus === 'registered'" (click)="setFilter('registered')">Registered</li>
+        <li [class.active]="filterStatus === 'completed'" (click)="setFilter('completed')">Completed</li>
+      </ul>
+    </nav>
+
+    <!-- If we have courses, show the grid; otherwise show no-results -->
+    <ng-container *ngIf="filteredCourses.length > 0; else noCourses">
       <div class="course-grid">
-        <div class="course-card">
-          <div class="logo-block">
-            <img src="assets/symfony.png" >
-          </div>
-          <div class="course-info">
-            <p>Development</p>
-            <h3>Begin with Symfony</h3>
-            <div class="progress">
-              <span class="circle"></span>
-              <span>11% of progression</span>
+        <ng-container *ngFor="let c of filteredCourses">
+          <a
+            [routerLink]="['/course-details', c.coursId]"
+            class="course-card card-link"
+            style="text-decoration: none;"
+          >
+            <div class="logo-block">
+              <img [src]="c.imageUrl" [alt]="c.title" />
             </div>
-          </div>
-        </div>
-
-        <div class="course-card">
-          <div class="logo-block">
-            <img src="assets/angular.png" >
-          </div>
-          <div class="course-info">
-            <p>Development</p>
-            <h3>Begin with Angular</h3>
-            <div class="progress">
-              <span class="circle"></span>
-              <span>11% of progression</span>
+            <div class="course-info">
+              <p class="category">{{ c.category }}</p>
+              <h3 class="title">{{ c.title }}</h3>
+              <div class="progress">
+                <span class="circle"></span>
+                <span>{{ c.pourcentage }}% of progression</span>
+              </div>
+              <div class="status">
+                <small>Status: <strong>{{ c.statut }}</strong></small>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="course-card">
-          <div class="logo-block">
-            <img src="assets/python.png" >
-          </div>
-          <div class="course-info">
-            <p>Development</p>
-            <h3>Begin with Python</h3>
-            <div class="progress">
-              <span class="circle"></span>
-              <span>11% of progression</span>
-            </div>
-          </div>
-        </div>
-        <div class="course-card">
-          <div class="logo-block">
-            <img src="assets/images.png" alt="SpringBoot">
-          </div>
-          <div class="course-info">
-            <p>Development</p>
-            <h3>Begin with SpringBoot</h3>
-            <div class="progress">
-              <span class="circle"></span>
-              <span>11% of progression</span>
-            </div>
-          </div>
-        </div>
- 
-
- 
-        
+          </a>
+        </ng-container>
       </div>
-    </main>
+    </ng-container>
 
-    <app-footer></app-footer>
-  </div>
-</body>
+    <!-- Template shown when there are no courses to display -->
+    <ng-template #noCourses>
+      <div class="no-courses">
+        <p>No courses found for the selected filter.</p>
+      </div>
+    </ng-template>
+  </main>
+
+  <app-footer></app-footer>
+</div>
