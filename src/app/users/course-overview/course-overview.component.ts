@@ -4,6 +4,8 @@ import { CoursesService } from './../../Services/courses.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-course-overview',
   standalone: true,
@@ -35,20 +37,43 @@ export class CourseOverviewComponent implements OnInit {
 
   registerToCourse() {
     if (!localStorage.getItem("token")) {
-      this.router.navigate(["/auth"])
+      this.router.navigate(["/auth"]);
       return;
     }
+
     const data = {
       utilisateur_id: this.user?.id,
       cours_id: this.courseId
     };
+
     this.progressionService.registerToCourse(data).subscribe({
       next: (res) => {
-        alert('Inscription réussie au cours !');
-        window.location.reload();
+        const message = res.message || '';
+        if (message === 'Course registration successful.') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Inscription réussie',
+            text: 'Vous êtes inscrit à ce cours.',
+            confirmButtonColor: '#4361ee'
+          }).then(() => {
+            window.location.reload(); // recharger après le popup
+          });
+        } else if (message === 'User is already registered for this course.') {
+          Swal.fire({
+            icon: 'info',
+            title: 'Déjà inscrit ou complété',
+            text: 'Vous êtes complété ou déjà inscrit à ce cours.',
+            confirmButtonColor: '#4361ee'
+          });
+        }
       },
       error: (err) => {
-        alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l’inscription. Veuillez réessayer.',
+          confirmButtonColor: '#ef233c'
+        });
       }
     });
   }

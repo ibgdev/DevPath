@@ -18,9 +18,9 @@
 
         <div class="progress-container">
           <div class="progress-circle">
-            <div class="progress-indicator" [style.strokeDashoffset]="calculateProgress()"></div>
+            <div class="progress-indicator" [style.strokeDashoffset]="progressionPercentage"></div>
           </div>
-          <span class="progress-text">{{ calculateProgress() }}% of progression</span>
+          <span class="progress-text">{{ progressionPercentage }}% of progression</span>
         </div>
       </div>
 

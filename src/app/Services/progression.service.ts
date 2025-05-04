@@ -21,6 +21,11 @@ export class ProgressionService {
   }): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, data);
   }
+
+  updateProgression(data: any): Observable<any> {
+    return this.http.post('http://localhost:8000/api/progression/update', data);
+  }
+
 }
 
 export interface ProgressionResponse {

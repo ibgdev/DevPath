@@ -23,6 +23,7 @@ export class DetailCourseComponent implements OnInit {
   courseId: number = 0;
   isRegistered: boolean = false;
   user = JSON.parse(sessionStorage.getItem("user") || '{}');
+  progressionPercentage: number = 0;
 
   constructor(
     private progressionService: ProgressionService,
@@ -42,7 +43,7 @@ export class DetailCourseComponent implements OnInit {
     }
   }
 
-  //Get all videos of the course
+  // Get all videos of the course
   fetchVideos(): void {
     this.videosService.getVideosByCourseId(this.courseId).subscribe(
       (response) => {
@@ -54,21 +55,16 @@ export class DetailCourseComponent implements OnInit {
     );
   }
 
-  //check if the user registred to the course or not
+  // Check if the user is registered to the course
   checkRegistration(): void {
     this.progressionService.chechRegistration(this.user.id, this.courseId).subscribe(
       (response) => {
-        console.log('Registration check response:', response);
-
-        // Check if the response contains the expected properties
-        if (response && response.statut && response.pourcentage !== undefined) {
-          // Update registration status and progression data
-          this.isRegistered = response.statut === 'registered';
-          console.log('Registration status:', this.isRegistered);
-          console.log('Progress percentage:', response.pourcentage);
-        } else {
-          console.error('Invalid response structure:', response);
-        }
+        this.isRegistered = response.statut === 'registered';
+        this.progressionPercentage = response.pourcentage;
+        // derive last index (rounding down)
+        const total = this.course_videos.length;
+        const idx = Math.floor((response.pourcentage / 100) * total) - 1;
+        this.currentVideoIndex = idx >= 0 ? idx : 0;
       },
       (error) => {
         console.error('Registration check failed:', error);
@@ -76,24 +72,42 @@ export class DetailCourseComponent implements OnInit {
     );
   }
 
-
-  goToPrevious(): void {
-    if (this.currentVideoIndex > 0) {
-      this.currentVideoIndex--;
-    }
-  }
-
+  // Go to next video
   goToNext(): void {
     if (this.currentVideoIndex < this.course_videos.length - 1) {
       this.currentVideoIndex++;
+      this.updateProgression();
     }
   }
 
-  //TODO : progression algo rlated to database
-  calculateProgress(): number {
-    if (this.course_videos.length === 0) {
-      return 0;
+  // Go to previous video
+  goToPrevious(): void {
+    if (this.currentVideoIndex > 0) {
+      this.currentVideoIndex--;
+      this.updateProgression();
     }
-    return Math.round(((this.currentVideoIndex + 1) / this.course_videos.length) * 100);
+  }
+
+  // Update the progression in the backend and fetch the updated percentage
+  updateProgression(): void {
+    const body = {
+      utilisateur_id: this.user.id,
+      cours_id: this.courseId,
+      current_video_index: this.currentVideoIndex,
+      total_videos: this.course_videos.length
+    };
+
+    this.progressionService.updateProgression(body).subscribe({
+      next: (response: any) => {
+        console.log('Progression updated:', response);
+        // read the correct key:
+        this.progressionPercentage = response.new_percentage;
+      },
+      error: (err) => {
+        console.error('Failed to update progression:', err);
+      }
+    });
+
   }
 }
+
