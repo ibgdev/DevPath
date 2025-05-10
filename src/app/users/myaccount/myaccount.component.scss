@@ -1,137 +1,245 @@
+// Import variables from your main styles
+$primary-color: #2a53ff;
+$secondary-color: #1f3aa3;
+$background-color: #f8f9fa;
+$text-color: #333;
+$text-light: #666;
+$white: #fff;
+$shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+$border-radius: 12px;
+$card-padding: 20px;
+$transition: all 0.3s ease;
+
+// Account page styling
 .account-container {
-    padding: 50px 20px;
-    background-color: #f2f2f2;
-    min-height: 100vh;
-    text-align: center;
-  
-    h2 {
-      font-size: 32px;
-      font-weight: 700;
-      color: #1c1c1c;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+
+  h2 {
+    color: $primary-color;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: $primary-color;
+      border-radius: 2px;
     }
-  
-    .subtitle {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 40px;
+  }
+
+  .subtitle {
+    color: $text-light;
+    font-size: 16px;
+    margin-bottom: 40px;
+    padding-top: 15px;
+  }
+}
+
+.account-card {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  padding: $card-padding + 10;
+  display: flex;
+  gap: 40px;
+  position: relative;
+
+
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.account-form {
+  flex: 1;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: $text-color;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid lighten($text-light, 30%);
+    border-radius: calc($border-radius / 2);
+    font-size: 14px;
+    transition: $transition;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
     }
-  
-    .account-card {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: #fff;
-      border: 2px solid #007bff33;
-      border-radius: 8px;
-      padding: 30px;
-      display: flex;
-      gap: 40px;
-      justify-content: space-between;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-  
-      @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: center;
+
+    &:read-only {
+      background-color: lighten($background-color, 2%);
+    }
+  }
+
+  .email-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input {
+      margin-bottom: 0;
+    }
+
+
+  }
+}
+
+.change-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px;
+  transition: $transition;
+  border-radius: calc($border-radius / 3);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.1);
+  }
+}
+
+.cancel-link {
+  color: red;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px;
+  transition: $transition;
+  border-radius: calc($border-radius / 3);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(red, 0.1);
+  }
+}
+
+.delete-section {
+  margin: 30px 0;
+  padding: 15px 20px;
+  background-color: rgba(#ff4747, 0.05);
+  border-left: 3px solid #ff4747;
+  border-radius: calc($border-radius / 3);
+
+  h4 {
+    color: #ff4747;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  p {
+    color: $text-light;
+    font-size: 14px;
+    line-height: 1.5;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+
+  button {
+    padding: 12px 24px;
+    border-radius: calc($border-radius / 2);
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+    border: none;
+
+    &.cancel {
+      background-color: $background-color;
+      color: $text-light;
+      border: 1px solid lighten($text-light, 30%);
+
+      &:hover {
+        background-color: darken($background-color, 5%);
       }
-  
-      .account-form {
-        flex: 2;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-  
-        label {
-          font-weight: 600;
-          text-align: left;
-        }
-  
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-          padding: 12px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 16px;
-          width: 100%;
-        }
-  
-        .email-field {
-          position: relative;
-  
-          .change-link {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            color: #007bff;
-            text-decoration: underline;
-            cursor: pointer;
-          }
-        }
-  
-        .delete-section {
-          text-align: left;
-  
-          h4 {
-            color: red;
-            font-weight: 600;
-          }
-  
-          p {
-            font-size: 14px;
-            color: #333;
-            margin-top: 4px;
-          }
-        }
-  
-        .buttons {
-          display: flex;
-          gap: 15px;
-  
-          .cancel {
-            background: #ccc;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-          }
-  
-          .save {
-            background: #4c7cf0;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-          }
-        }
-      }
-  
-      .profile-info {
-        flex: 1;
-        text-align: center;
-  
-        img {
-          width: 100px;
-          border-radius: 50%;
-          margin-bottom: 15px;
-        }
-  
-        .username {
-          font-weight: 600;
-          font-size: 18px;
-          margin-bottom: 20px;
-        }
-  
-        .delete {
-          background: #e53935;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 6px;
-          cursor: pointer;
-        }
+    }
+
+    &.save {
+      background-color: $primary-color;
+      color: $white;
+
+      &:hover {
+        background-color: $secondary-color;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba($primary-color, 0.2);
       }
     }
   }
-  
+}
+
+.profile-info {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lighten($text-light, 35%);
+    margin-bottom: 20px;
+  }
+
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      box-shadow: 0 8px 20px rgba($primary-color, 0.2);
+    }
+  }
+
+  .username {
+    margin: 15px 0;
+    font-weight: 600;
+    font-size: 18px;
+    color: $text-color;
+  }
+
+  .delete {
+    margin-top: 10px;
+    background: none;
+    border: 1px solid #ff4747;
+    color: #ff4747;
+    padding: 10px 15px;
+    border-radius: calc($border-radius / 2);
+    font-weight: 500;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background-color: #ff4747;
+      color: $white;
+    }
+  }
+}

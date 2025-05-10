@@ -6,7 +6,7 @@ import { AuthService } from '../Services/auth.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [SharedModule,RouterLink],
+  imports: [SharedModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -17,13 +17,13 @@ export class NavbarComponent implements OnInit {
   isMenuOpen: boolean = false;
   isDropdownOpen: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     // Check if there's a token in localStorage to determine if the user is logged in
     if (localStorage.getItem("token")) {
       this.isLoggedIn = true;
-      this.getUserInfo();  // Fetch user info if logged in
+      this.getUserInfo();
     }
   }
 
@@ -34,20 +34,27 @@ export class NavbarComponent implements OnInit {
   }
 
   getUserInfo() {
-    const userInfo = this.authService.getUserInfoFromToken();  // Decode token to get user info
+    const userInfo = this.authService.getUserInfoFromToken();
 
-    if (userInfo && userInfo.username) {
-      this.authService.getUser(userInfo.username).subscribe({
-        next: (user) => {
-          this.user = user;  // Set user information
-          sessionStorage.setItem('user', JSON.stringify(user));  // Store user data in localStorage
-        },
-        error: (err) => {
-          console.error('Failed to fetch user information', err);
-          alert('Failed to fetch user information');
-        }
-      });
+    if (sessionStorage.getItem("user")) {
+      const storedUser = sessionStorage.getItem("user");
+      this.user = storedUser ? JSON.parse(storedUser) : null;
+    } else {
+      if (userInfo && userInfo.username) {
+        this.authService.getUser(userInfo.username).subscribe({
+          next: (user) => {
+            this.user = user;  // Set user information
+            sessionStorage.setItem('user', JSON.stringify(user));  // Store user data in localStorage
+          },
+          error: (err) => {
+            console.error('Failed to fetch user information', err);
+            alert('Failed to fetch user information');
+          }
+        });
+      }
     }
+
+
   }
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;

@@ -10,6 +10,8 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component";
 import { AuthService } from '../Services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-auth',
@@ -24,7 +26,7 @@ export class AuthComponent implements AfterViewInit {
   constructor(
     private renderer: Renderer2,
     private authService: AuthService,
-    private router: Router  // Inject the Router for navigation
+    private router: Router
   ) { }
 
   ngAfterViewInit(): void {
@@ -44,16 +46,19 @@ export class AuthComponent implements AfterViewInit {
   onLogin(email: string, password: string) {
     this.authService.login({ email, password }).subscribe({
       next: (res: any) => {
-        const token = res.token;         // ✅ reads the "token"
-        const user = res.user;           // ✅ reads the "user" object
+        const token = res.token;
+        const user = res.user;
 
-        this.authService.saveToken(token);   // Saves token in localStorage
+        this.authService.saveToken(token);
 
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.error('Login failed', err);
-        alert(err.error?.error || 'Login failed.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: err.error?.error || 'Please check your credentials and try again.'
+        });
       }
     });
 
@@ -63,13 +68,21 @@ export class AuthComponent implements AfterViewInit {
   onRegister(email: string, password: string, username: string) {
     this.authService.register({ email, password, username }).subscribe({
       next: () => {
-        alert('Registration successful. You can now log in.');
-        // Optionally, you can redirect the user to the login page after successful registration
+          Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful',
+          text: 'You can now log in!',
+          timer: 2000,
+          showConfirmButton: false,
+        });
         this.renderer.removeClass(this.containerRef.nativeElement, 'sign-up-mode');
       },
       error: (err) => {
-        console.error('Registration failed', err);
-        alert(err.error?.error || 'Registration failed.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text: err.error?.error || 'Please verify your details and try again.'
+        });
       }
     });
   }

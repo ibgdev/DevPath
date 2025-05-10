@@ -2,42 +2,38 @@
 <div class="account-container">
     <h2>My Account</h2>
     <p class="subtitle">Edit your profile from here</p>
-  
+
     <div class="account-card">
-      <form class="account-form">
+      <form class="account-form" #form="ngForm" (ngSubmit)="saveChanges()">
         <label for="name">Your Name</label>
-        <input type="text" id="name" [(ngModel)]="name" />
-  
+        <input type="text" id="name" name="name" [value]="user.username" [readonly]="changeInfo" [(ngModel)] = "name"  >
+
         <label for="password">Password</label>
-        <input type="password" id="password" [(ngModel)]="password" />
-  
+        <input type="password" id="password" name="password" [readonly]="changeInfo" [(ngModel)]="password">
+
         <label for="email">Email Address</label>
         <div class="email-field">
-          <input type="email" id="email" value="exampleuser@domain.com" readonly />
-          <a href="#" class="change-link">Change</a>
+          <input type="email" id="email" name="email" [value]="user.email" [readonly]="changeInfo" [(ngModel)]="email" >
         </div>
-  
-        <div class="delete-section">
-          <h4>Delete Your Account</h4>
-          <p>
-            You will receive an email to confirm your decision.<br />
-            <strong>Please note</strong>, that all achievements you have done in will be permanently deleted
-          </p>
-        </div>
-  
+        <br>
+        @if (changeInfo) {
+          <a (click)="changeInfos()" class="change-link">Change account informations</a>
+        }@else{
+          <a (click)="changeInfos()" class="cancel-link">Keep account informations</a>
+        }
+
         <div class="buttons">
           <button type="button" class="cancel" (click)="cancelChanges()">Cancel</button>
-          <button type="submit" class="save" (click)="saveChanges()">Save changes</button>
-          
+          <button type="submit" class="save"   [disabled]="form.invalid || changeInfo">Save changes</button>
+
         </div>
       </form>
-  
+
       <div class="profile-info">
         <img src="assets/user.jpg" alt="Profile" />
-        <p class="username">User Example</p>
-        <button class="delete" (click)="deleteAccount()">Delete account</button>
+        <p class="username">{{ user.username }}</p>
       </div>
     </div>
   </div>
-  
+
 <app-footer></app-footer>

@@ -257,7 +257,7 @@ h1 {
   li {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    border-radius: $border-radius / 2;
+    border-radius: calc($border-radius / 2);
     color: $text-light;
     transition: $transition;
     &:hover {
