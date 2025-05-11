@@ -205,28 +205,27 @@ body {
       align-items: center;
       gap: 8px;
 
-      &:after {
-        content: '';
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-right: 2px solid $primary;
-        border-bottom: 2px solid $primary;
-        transform: rotate(45deg);
-        transition: $transition;
-        position: relative;
-        top: -2px;
-      }
+        &:after {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 8px;
+            border-right: 2.5px solid $primary;
+            border-bottom: 2.5px solid $primary;
+            transform: rotate(90deg) translateY(-25%);
+            transition: $transition;
+            margin-left: 6px;
+            position: static;
+        }
 
       &:hover, &.show {
         background-color: $primary-light;
         box-shadow: 0 5px 15px $shadow-light;
       }
 
-      &.show:after {
-        transform: rotate(-135deg);
-        top: 2px;
-      }
+        &.show:after {
+            transform: rotate(-90deg) translateY(25%); 
+        }
     }
 
     .dropdown-menu {
